@@ -28,8 +28,6 @@ $reponse1 = $dbh->prepare('SELECT valeur FROM statistique where action = ?');
 $reponse1->execute(array("Als"));
 $data = $reponse1->fetchAll();
 foreach ($data as $valeur){
-    $i++;
-    $moyE1 += $valeur['valeur'];
     if ($notePrecedente == -1) {
         $notePrecedente = $coeff*$valeur['valeur'];
         continue;
@@ -38,17 +36,15 @@ foreach ($data as $valeur){
     $notePrecedente = $coeff*$valeur['valeur'];
     $x0 += 50;
 }
-$moyE1 = $moyE1 / $i;
 
-$x0 = $i = 0;
+$x0 = 0;
 $notePrecedente = -1;
 
 $reponse2 = $dbh->prepare('SELECT valeur FROM statistique where action = ?');
 $reponse2->execute(array("For"));
 $data = $reponse2->fetchAll();
 foreach ($data as $valeur){
-    $i++;
-    $moyE2 += $valeur['valeur'];
+
     if ($notePrecedente == -1) {
         $notePrecedente = $coeff*$valeur['valeur'];
         continue;
@@ -57,7 +53,6 @@ foreach ($data as $valeur){
     $notePrecedente = $coeff*$valeur['valeur'];
     $x0 += 50;
 }
-$moyE2 = $moyE2 / $i;
 
 imagestring($image, 20, 50, 10, "Cours des actions Als", $green);
 imagestring($image, 20, 50, 30, "et for en 2010", $green);
